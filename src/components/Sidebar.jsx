@@ -22,7 +22,7 @@ const Sidebar = () => {
 
         {/* <!-- Nav Item - Dashboard --> */}
         <li className="nav-item active">
-          <Link className="nav-link" to="/dashboard">
+          <Link className="nav-link" to="/layout/dashboard">
             {/*<FontAwesomeIcon icon={faTachographDigital} style={{ marginRight: "0.5rem" }} />*/}
             <span
               className="material-symbols-outlined"
@@ -42,7 +42,7 @@ const Sidebar = () => {
 
         {/* <!-- Nav Item - Users --> */}
         <li className="nav-item active">
-          <Link className="nav-link" to="/user/list">
+          <Link className="nav-link" to="/layout/user/list">
             {/*<FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />*/}
             <span
               className="material-symbols-outlined"
@@ -59,6 +59,23 @@ const Sidebar = () => {
         </li>
         <hr className="sidebar-divider my-0" />
 
+        <li className="nav-item active">
+          <Link className="nav-link" to="/product/list">
+            {/*<FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />*/}
+            <span
+              className="material-symbols-outlined"
+              style={{
+                marginRight: "0.5rem",
+                fontSize: "25px",
+                verticalAlign: "middle",
+              }}
+            >
+              inventory_2
+            </span>
+            <span>Products</span>
+          </Link>
+        </li>
+        <hr className="sidebar-divider my-0" />
         <li className="nav-item active">
           <Link className="nav-link" to="">
             {/*<FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />*/}
@@ -77,22 +94,6 @@ const Sidebar = () => {
         </li>
         <hr className="sidebar-divider my-0" />
 
-        <li className="nav-item active">
-          <Link className="nav-link" to="">
-            {/*<FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />*/}
-            <span
-              className="material-symbols-outlined"
-              style={{
-                marginRight: "0.5rem",
-                fontSize: "25px",
-                verticalAlign: "middle",
-              }}
-            >
-              inventory_2
-            </span>
-            <span>Products</span>
-          </Link>
-        </li>
         <hr className="sidebar-divider my-0" />
       </ul>
     </>

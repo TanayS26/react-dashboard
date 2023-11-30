@@ -1,10 +1,75 @@
 {
-  "users": [],
-  "comments": [
+  "users": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "name": "Tanay",
+      "email": "tanay@dice-academy.com",
+      "password": "1234",
+      "number": 1232323456,
+      "city": "MU",
+      "state": "MH",
+      "country": "IN",
+      "id": 1
+    },
+    {
+      "name": "Tripuu",
+      "email": "tripjha03@gmail.com",
+      "password": "123233",
+      "number": 1232323234,
+      "city": "KN",
+      "state": "KL",
+      "country": "IN",
+      "id": 2
+    }
+  ],
+  "products": [
+    {
+      "name": "MObile",
+      "price": "12423",
+      "desc": "test description",
+      "rating": "2",
+      "id": 1
+    },
+    {
+      "name": "wwwew",
+      "price": "ewerwer",
+      "desc": "sdfsdfsdfsdf",
+      "rating": "1",
+      "id": 2
+    },
+    {
+      "name": "",
+      "price": "12423",
+      "desc": "",
+      "rating": "",
+      "id": 3
+    },
+    {
+      "name": "saasaasaaaaaaaaaaaaaaaaa",
+      "price": "",
+      "desc": "",
+      "rating": "",
+      "id": 4
+    },
+    {
+      "name": "awaswde",
+      "price": "aws",
+      "desc": "ss",
+      "rating": "ss",
+      "id": 5
+    },
+    {
+      "name": "aaa",
+      "price": "aaa",
+      "desc": "aaa",
+      "rating": "aaa",
+      "id": 6
+    },
+    {
+      "name": "",
+      "price": "",
+      "desc": "ggg",
+      "rating": "",
+      "id": 7
     }
   ],
   "profile": {

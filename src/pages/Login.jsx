@@ -1,5 +1,20 @@
+import axios from "axios";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 const Login = () => {
+
+  useEffect(() => {
+    users()
+  }, [])
+  const users = async () => {
+    try {
+      const users = await axios.get("http://localhost:8000/users");
+      console.log(users);
+      console.log(users.data);
+    } catch (err) {
+      console.log('error ', err.message);
+    }
+  };
   return (
     <>
       <div className="row justify-content-center">
@@ -41,14 +56,14 @@ const Login = () => {
                           />
                           <label
                             className="custom-control-label"
-                            for="customCheck"
+                            htmlFor="customCheck"
                           >
                             Remember Me
                           </label>
                         </div>
                       </div>
                       <Link
-                        to="/dashboard"
+                        to="/layout/dashboard"
                         className="btn btn-primary btn-user btn-block"
                       >
                         Login
