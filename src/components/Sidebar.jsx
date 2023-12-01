@@ -23,7 +23,6 @@ const Sidebar = () => {
         {/* <!-- Nav Item - Dashboard --> */}
         <li className="nav-item active">
           <Link className="nav-link" to="/layout/dashboard">
-            {/*<FontAwesomeIcon icon={faTachographDigital} style={{ marginRight: "0.5rem" }} />*/}
             <span
               className="material-symbols-outlined"
               style={{
@@ -40,10 +39,8 @@ const Sidebar = () => {
         {/* <!-- Divider --> */}
         <hr className="sidebar-divider my-0" />
 
-        {/* <!-- Nav Item - Users --> */}
         <li className="nav-item active">
           <Link className="nav-link" to="/layout/user/list">
-            {/*<FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />*/}
             <span
               className="material-symbols-outlined"
               style={{
@@ -60,8 +57,7 @@ const Sidebar = () => {
         <hr className="sidebar-divider my-0" />
 
         <li className="nav-item active">
-          <Link className="nav-link" to="/product/list">
-            {/*<FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />*/}
+          <Link className="nav-link" to="/layout/product/list">
             <span
               className="material-symbols-outlined"
               style={{
@@ -78,7 +74,6 @@ const Sidebar = () => {
         <hr className="sidebar-divider my-0" />
         <li className="nav-item active">
           <Link className="nav-link" to="">
-            {/*<FontAwesomeIcon icon={faUsers} style={{ marginRight: "0.5rem" }} />*/}
             <span
               className="material-symbols-outlined"
               style={{

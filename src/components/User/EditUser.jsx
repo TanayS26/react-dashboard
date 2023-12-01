@@ -2,6 +2,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const EditUser = () => {
   const params = useParams();
@@ -33,46 +34,45 @@ const EditUser = () => {
       country: "",
     },
 
-    validate: (values) => {
-      let errors = {}; //Validating the form once the error returns empty else onsubmit won't work
-
-      // if (!values.username) {
-      //     errors.username = "Please enter username";
-      // } else if (values.username.length < 5) {
-      //     errors.username = "Name shouldn't be less than 3 letters";
-      // } else if (values.username.length > 25) {
-      //     errors.username = "Name shouldn't be more than 20 letters";
-      // }
-
-      if (!values.email) {
-        errors.email = "Please enter email";
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-      ) {
-        errors.email = "Invalid email address";
-      }
-
-      if (!values.city) {
-        errors.city = "Please select any one city";
-      }
-
-      if (!values.state) {
-        errors.state = "Please select any one state";
-      }
-
-      if (!values.country) {
-        errors.country = "Please select any one state";
-      }
-
-      return errors;
-    },
+    // validate: (values) => {
+    //   // let errors = {}; //Validating the form once the error returns empty else onsubmit won't work
+    //   // if (!values.username) {
+    //   //     errors.username = "Please enter username";
+    //   // } else if (values.username.length < 5) {
+    //   //     errors.username = "Name shouldn't be less than 3 letters";
+    //   // } else if (values.username.length > 25) {
+    //   //     errors.username = "Name shouldn't be more than 20 letters";
+    //   // }
+    //   // if (!values.email) {
+    //   //   errors.email = "Please enter email";
+    //   // } else if (
+    //   //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    //   // ) {
+    //   //   errors.email = "Invalid email address";
+    //   // }
+    //   // if (!values.city) {
+    //   //   errors.city = "Please select any one city";
+    //   // }
+    //   // if (!values.state) {
+    //   //   errors.state = "Please select any one state";
+    //   // }
+    //   // if (!values.country) {
+    //   //   errors.country = "Please select any one state";
+    //   // }
+    //   // return errors;
+    // },
 
     onSubmit: async (values) => {
       try {
         setIsLoading(true);
         await axios.put(`http://localhost:8000/users/${params.id}`, values);
+        toast.success(`User with id ${params.id} updated successfully`, {
+          duration: 2000
+        })
         setIsLoading(false);
-        navigate("/user/list");
+        setTimeout(() => {
+          navigate("/layout/user/list");
+        }, 2000)
       } catch (error) {
         console.log(error);
         setIsLoading(false);
@@ -215,6 +215,7 @@ const EditUser = () => {
           {/* {JSON.stringify(myFormik.values)} */}
         </div>
       </div>
+      <Toaster />
     </>
   );
 };

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 
 const CreateUser = () => {
@@ -115,13 +116,19 @@ const CreateUser = () => {
       try {
         setIsLoading(true);
         await axios.post("http://localhost:8000/users", values);
-        navigate("/user/list");
+        toast.success("User added successfully", {
+          duration: 2000
+        })
+        setTimeout(() => {
+          navigate("/layout/user/list");
+        }, 2000)
       } catch (err) {
         console.log(err.message);
         setIsLoading(false);
       }
     },
   });
+  
 
   return (
     <>
@@ -276,6 +283,7 @@ const CreateUser = () => {
     </form>
     {/* {JSON.stringify(myFormik.values)} */}
   </div>
+  <Toaster />
     </>
   );
 };

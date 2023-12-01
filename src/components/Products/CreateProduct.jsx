@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useFormik } from "formik";
-import Sidebar from "../Sidebar";
-import Header from "../Header";
-import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const CreateProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +40,12 @@ const CreateProduct = () => {
       try {
         setIsLoading(true);
         await axios.post("http://localhost:8000/products", values);
-        navigate("/product/list");
+        toast.success("Product added successfully !", {
+          duration: 2000,
+        });
+        setTimeout(() => {
+          navigate("/layout/product/list");
+        }, 2000)
       } catch (err) {
         setIsLoading(false);
         console.log(err.message);
@@ -52,95 +55,78 @@ const CreateProduct = () => {
 
   return (
     <>
-      <div id="wrapper">
-        <Sidebar />
-        <div id="content-wrapper" className="d-flex flex-column">
-          <div id="content">
-            <Header />
-            <div className="container-fluid">
-              <Outlet></Outlet>
+      <div className="container">
+        <form onSubmit={myFormik.handleSubmit}>
+          <div className="row">
+            <div className="col-lg-6">
+              <label>Name</label>
+              <input
+                name="name"
+                value={myFormik.values.name}
+                onChange={myFormik.handleChange}
+                type={"text"}
+                className={`form-control ${
+                  myFormik.errors.name ? "is-invalid" : ""
+                } `}
+              />
+              <span style={{ color: "red" }}>{myFormik.errors.name}</span>
             </div>
-            {/**/}
-            <div className="container">
-              <form onSubmit={myFormik.handleSubmit}>
-                <div className="row">
 
-                  <div className="col-lg-6">
-                    <label>Name</label>
-                    <input
-                      name="name"
-                      value={myFormik.values.name}
-                      onChange={myFormik.handleChange}
-                      type={"text"}
-                      className={`form-control ${
-                        myFormik.errors.name ? "is-invalid" : ""
-                      } `}
-                    />
-                    <span style={{ color: "red" }}>{myFormik.errors.name}</span>
-                  </div>
-
-                  <div className="col-lg-6">
-                    <label>Price</label>
-                    <input
-                      name="price"
-                      value={myFormik.values.price}
-                      onChange={myFormik.handleChange}
-                      type={"text"}
-                      className={`form-control ${
-                        myFormik.errors.price ? "is-invalid" : ""
-                      } `}
-                    />
-                    <span style={{ color: "red" }}>
-                      {myFormik.errors.price}
-                    </span>
-                  </div>
-
-                  <div className="col-lg-6">
-                    <label>Description</label>
-                    <input
-                      name="desc"
-                      value={myFormik.values.desc}
-                      onChange={myFormik.handleChange}
-                      type={"text"}
-                      className={`form-control ${
-                        myFormik.errors.desc ? "is-invalid" : ""
-                      } `}
-                    />
-                    <span style={{ color: "red" }}>{myFormik.errors.desc}</span>
-                  </div>
-
-                  <div className="col-lg-6">
-                    <label>Rating</label>
-                    <input
-                      name="rating"
-                      value={myFormik.values.rating}
-                      onChange={myFormik.handleChange}
-                      type={"text"}
-                      className={`form-control ${
-                        myFormik.errors.rating ? "is-invalid" : ""
-                      } `}
-                    />
-                    <span style={{ color: "red" }}>
-                      {myFormik.errors.rating}
-                    </span>
-                  </div>
-
-                  <div className="col-lg-4 mt-3">
-                    <input
-                      disabled={isLoading}
-                      type="submit"
-                      value={isLoading ? "Submitting..." : "Create"}
-                      className=" btn btn-primary"
-                    />
-                  </div>
-                </div>
-              </form>
-              {/* {JSON.stringify(myFormik.values)} */}
+            <div className="col-lg-6">
+              <label>Price</label>
+              <input
+                name="price"
+                value={myFormik.values.price}
+                onChange={myFormik.handleChange}
+                type={"number"}
+                className={`form-control ${
+                  myFormik.errors.price ? "is-invalid" : ""
+                } `}
+              />
+              <span style={{ color: "red" }}>{myFormik.errors.price}</span>
             </div>
-            {/**/}
+
+            <div className="col-lg-6">
+              <label>Description</label>
+              <input
+                name="desc"
+                value={myFormik.values.desc}
+                onChange={myFormik.handleChange}
+                type={"text"}
+                className={`form-control ${
+                  myFormik.errors.desc ? "is-invalid" : ""
+                } `}
+              />
+              <span style={{ color: "red" }}>{myFormik.errors.desc}</span>
+            </div>
+
+            <div className="col-lg-6">
+              <label>Rating</label>
+              <input
+                name="rating"
+                value={myFormik.values.rating}
+                onChange={myFormik.handleChange}
+                type={"number"}
+                className={`form-control ${
+                  myFormik.errors.rating ? "is-invalid" : ""
+                } `}
+              />
+              <span style={{ color: "red" }}>{myFormik.errors.rating}</span>
+            </div>
+
+            <div className="col-lg-4 mt-3">
+              <input
+                disabled={isLoading}
+                type="submit"
+                value={isLoading ? "Submitting..." : "Create"}
+                className=" btn btn-primary"
+              />
+            </div>
           </div>
-        </div>
+        </form>
+        {/* {JSON.stringify(myFormik.values)} */}
       </div>
+      <Toaster/>
     </>
   );
 };

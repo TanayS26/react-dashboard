@@ -1,18 +1,20 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-const Login = () => {
 
+
+const Login = () => {
+  
   useEffect(() => {
-    users()
-  }, [])
+    users();
+  }, []);
   const users = async () => {
     try {
       const users = await axios.get("http://localhost:8000/users");
       console.log(users);
       console.log(users.data);
     } catch (err) {
-      console.log('error ', err.message);
+      console.log("error ", err.message);
     }
   };
   return (
@@ -33,6 +35,7 @@ const Login = () => {
                       <div className="form-group">
                         <input
                           type="email"
+
                           className="form-control form-control-user"
                           id="exampleInputEmail"
                           aria-describedby="emailHelp"

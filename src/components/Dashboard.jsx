@@ -1,10 +1,8 @@
 import Card from "./Card";
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  // const navigate = useNavigate();
   const [user, setUser] = useState([]);
   const [product, setProduct] = useState([]);
 
@@ -16,7 +14,6 @@ const Dashboard = () => {
   let getUsers = async () => {
     try {
       const users = await axios.get("http://localhost:8000/users");
-      // console.log("users ", users.data.length);
       setUser(users.data);
       console.log(users.data);
     } catch (error) {
@@ -27,7 +24,6 @@ const Dashboard = () => {
   let getProducts = async () => {
     try {
       const products = await axios.get("http://localhost:8000/products");
-      // console.log("users ", users.data.length);
       setProduct(products.data);
       console.log(products.data);
     } catch (error) {
@@ -42,10 +38,11 @@ const Dashboard = () => {
     <>
       <div className="container">
         <div className="row">
-          <Card title="User Count" value={user.length} color="primary" />
-          <Card title="Total Products" value={product.length} color="success" />
-          <Card title="Tasks" value="50%" color="info" />
-          <Card title="Pending Requests" value="18" color="warning" />
+          <Card title="User Count" value={user.length} color="primary" icon="group" />
+        
+          <Card title="Total Products" value={product.length} color="success" icon="inventory" />
+          {/*<Card title="Tasks" value="50%" color="info" />*/}
+          {/*<Card title="Pending Requests" value="18" color="warning" />*/}
         </div>
       </div>
     </>

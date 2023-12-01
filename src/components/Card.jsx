@@ -1,7 +1,4 @@
-// import { faCalendar } from "@fortawesome/free-regular-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const Card = ({ title, value, color }) => {
+const Card = ({ title, value, color, icon }) => {
   return (
     <>
       <div className="col-xl-3 col-md-6 mb-4">
@@ -18,7 +15,9 @@ const Card = ({ title, value, color }) => {
                   {value}
                 </div>
               </div>
-              <div className="col-auto"></div>
+              <div className="col-auto">
+                <span className="material-symbols-outlined" style={{fontSize: "35px"}}>{icon}</span>
+              </div>
             </div>
           </div>
         </div>
