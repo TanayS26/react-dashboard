@@ -19,6 +19,16 @@
       "state": "MN",
       "country": "AD",
       "id": 2
+    },
+    {
+      "name": "Abhishek Kumar",
+      "email": "abhishek@gmail",
+      "password": "abhi123",
+      "number": 991269108,
+      "city": "East Delhi",
+      "state": "DL",
+      "country": "IN",
+      "id": 3
     }
   ],
   "products": [
