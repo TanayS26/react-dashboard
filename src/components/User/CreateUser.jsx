@@ -4,35 +4,34 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-
 const CreateUser = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
 
+  const api = "https://api.countrystatecity.in/v1/countries";
 
   const navigate = useNavigate();
 
   const getAllCountries = async () => {
     try {
-      const countries = await axios.get("https://api.countrystatecity.in/v1/countries", {
+      const countries = await axios.get(api, {
         headers: {
           "X-CSCAPI-KEY":
-              "dzZxYUdqTEhIamhrTUdmdDZJOUducnRFazhUWFl4ZzY5UU1LVmZnRQ==",
-        }
-      })
+            "dzZxYUdqTEhIamhrTUdmdDZJOUducnRFazhUWFl4ZzY5UU1LVmZnRQ==",
+        },
+      });
       setCountries(countries.data);
-    } catch(err) {
-      console.log(err.message)
-    } 
-  }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   const getAllStates = async () => {
     try {
-      // console.log('country ', country);
       const state = await axios.get(
-        `https://api.countrystatecity.in/v1/countries/IN/states`,
+        `${api}/${myFormik.values.country}/states`,
         {
           headers: {
             "X-CSCAPI-KEY":
@@ -49,25 +48,20 @@ const CreateUser = () => {
 
   const getAllCities = async () => {
     try {
-      const cities = await axios.get(`https://api.countrystatecity.in/v1/countries/IN/states/UP/cities`, {
-        headers: {
-          "X-CSCAPI-KEY":
+      const cities = await axios.get(
+        `${api}/${myFormik.values.country}/states/${myFormik.values.state}/cities`,
+        {
+          headers: {
+            "X-CSCAPI-KEY":
               "dzZxYUdqTEhIamhrTUdmdDZJOUducnRFazhUWFl4ZzY5UU1LVmZnRQ==",
-        },
-      })
+          },
+        }
+      );
       setCities(cities.data);
-      console.log('cities ', cities.data)
-    } catch(err) {
+    } catch (err) {
       console.log(err.message);
     }
-  }
-
-  useEffect(() => {
-    getAllCountries();
-    getAllStates()
-    getAllCities();
-   
-  }, []);
+  };
 
   const myFormik = useFormik({
     initialValues: {
@@ -119,175 +113,166 @@ const CreateUser = () => {
         setIsLoading(true);
         await axios.post("http://localhost:8000/users", values);
         toast.success("User added successfully", {
-          duration: 2000
-        })
+          duration: 2000,
+        });
         setTimeout(() => {
           navigate("/layout/user/list");
-        }, 2000)
+        }, 2000);
       } catch (err) {
         console.log(err.message);
         setIsLoading(false);
       }
     },
   });
-  
+
+  useEffect(() => {
+    getAllCountries();
+    getAllStates();
+    getAllCities();
+  }, [myFormik.values.country, myFormik.values.state]);
 
   return (
     <>
-    <div className="container">
-    <form onSubmit={myFormik.handleSubmit}>
-      <div className="row">
-        <div className="col-lg-6">
-          <label>Name</label>
-          <input
-            name="name"
-            value={myFormik.values.name}
-            onChange={myFormik.handleChange}
+      <div className="container">
+        <form onSubmit={myFormik.handleSubmit}>
+          <div className="row">
+            <div className="col-lg-6">
+              <label>Name</label>
+              <input
+                name="name"
+                value={myFormik.values.name}
+                onChange={myFormik.handleChange}
+                type={"text"}
+                className={`form-control ${
+                  myFormik.errors.name ? "is-invalid" : ""
+                } `}
+              />
+              <span style={{ color: "red" }}>{myFormik.errors.name}</span>
+            </div>
 
-            type={"text"}
-            className={`form-control ${
-              myFormik.errors.name ? "is-invalid" : ""
-            } `}
-          />
-          <span style={{ color: "red" }}>{myFormik.errors.name}</span>
-        </div>
+            <div className="col-lg-6">
+              <label>Email</label>
+              <input
+                name="email"
+                value={myFormik.values.email}
+                onChange={myFormik.handleChange}
+                type={"mail"}
+                className={`form-control ${
+                  myFormik.errors.email ? "is-invalid" : ""
+                } `}
+              />
+              <span style={{ color: "red" }}>{myFormik.errors.email}</span>
+            </div>
 
-        <div className="col-lg-6">
-          <label>Email</label>
-          <input
-            name="email"
-            value={myFormik.values.email}
-            onChange={myFormik.handleChange}
-            type={"mail"}
-            className={`form-control ${
-              myFormik.errors.email ? "is-invalid" : ""
-            } `}
-          />
-          <span style={{ color: "red" }}>
-            {myFormik.errors.email}
-          </span>
-        </div>
+            <div className="col-lg-6">
+              <label>Password</label>
+              <input
+                name="password"
+                value={myFormik.values.password}
+                onChange={myFormik.handleChange}
+                type={"password"}
+                className={`form-control ${
+                  myFormik.errors.password ? "is-invalid" : ""
+                } `}
+              />
+              <span style={{ color: "red" }}>{myFormik.errors.password}</span>
+            </div>
 
-        <div className="col-lg-6">
-          <label>Password</label>
-          <input
-            name="password"
-            value={myFormik.values.password}
-            onChange={myFormik.handleChange}
-            type={"password"}
-            className={`form-control ${
-              myFormik.errors.password ? "is-invalid" : ""
-            } `}
-          />
-          <span style={{ color: "red" }}>
-            {myFormik.errors.password}
-          </span>
-        </div>
+            <div className="col-lg-6">
+              <label>Number</label>
+              <input
+                name="number"
+                value={myFormik.values.number}
+                onChange={myFormik.handleChange}
+                type={"number"}
+                className={`form-control ${
+                  myFormik.errors.number ? "is-invalid" : ""
+                } `}
+              />
+              <span style={{ color: "red" }}>{myFormik.errors.password}</span>
+            </div>
 
-        <div className="col-lg-6">
-          <label>Number</label>
-          <input
-            name="number"
-            value={myFormik.values.number}
-            onChange={myFormik.handleChange}
-            type={"number"}
-            className={`form-control ${
-              myFormik.errors.number ? "is-invalid" : ""
-            } `}
-          />
-          <span style={{ color: "red" }}>
-            {myFormik.errors.password}
-          </span>
-        </div>
+            <div className="col-lg-4">
+              <label>Country</label>
+              <select
+                name="country"
+                value={myFormik.values.country}
+                // onChange={(e)=>{myFormik.handleChange  ,  getAllStates(e.target.value)}}
+                onChange={myFormik.handleChange}
+                // onClick={(e)=>}
+                className={`form-control ${
+                  myFormik.errors.country ? "is-invalid" : ""
+                } `}
+              >
+                <option value="">----Select----</option>
+                {countries.map((e) => {
+                  return (
+                    <option key={e.id} value={e.iso2}>
+                      {e.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <span style={{ color: "red" }}>{myFormik.errors.country}</span>
+            </div>
 
-        <div className="col-lg-4">
-          <label>Country</label>
-          <select
-            name="country"
-            value={myFormik.values.country}
-            onChange={myFormik.handleChange}
-            // onChange={(e) => {myFormik.handleChange(e), getAllStates(e.target.value)}}
-            // onClick={(e)=>}
-            className={`form-control ${
-              myFormik.errors.country ? "is-invalid" : ""
-            } `}
-            >
-            {console.log()}
-            <option value="">----Select----</option>
-            {
-              countries.map((e) => {
-                return (
-                  <option key={e.id} value={e.iso2} >{e.name}</option>
-                )
-              })
-            }
-          </select>
-          <span style={{ color: "red" }}>
-            {myFormik.errors.country}
-          </span>
-        </div>
+            <div className="col-lg-4">
+              <label>State</label>
+              <select
+                name="state"
+                value={myFormik.values.state}
+                onChange={myFormik.handleChange}
+                className={`form-control ${
+                  myFormik.errors.state ? "is-invalid" : ""
+                } `}
+              >
+                <option value="">----Select----</option>
+                {states.map((e) => {
+                  return (
+                    <option key={e.id} value={e.iso2}>
+                      {e.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <span style={{ color: "red" }}>{myFormik.errors.state}</span>
+            </div>
 
-        <div className="col-lg-4">
-          <label>State</label>
-          <select
-            name="state"
-            value={myFormik.values.state}
-            onChange={myFormik.handleChange}
-            className={`form-control ${
-              myFormik.errors.state ? "is-invalid" : ""
-            } `}
-          >
-            <option value="">----Select----</option>
-            {states.map((e) => {
-              return (
-                <option key={e.id} value={e.iso2}>
-                  {e.name}
-                </option>
-              );
-            })}
-          </select>
-          <span style={{ color: "red" }}>
-            {myFormik.errors.state}
-          </span>
-        </div>
+            <div className="col-lg-4">
+              <label>City</label>
+              <select
+                name="city"
+                value={myFormik.values.city}
+                onChange={myFormik.handleChange}
+                className={`form-control ${
+                  myFormik.errors.city ? "is-invalid" : ""
+                } `}
+              >
+                <option value="">----Select----</option>
+                {cities.map((e) => {
+                  return (
+                    <option key={e.id} value={e.iso2}>
+                      {e.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <span style={{ color: "red" }}>{myFormik.errors.city}</span>
+            </div>
 
-        <div className="col-lg-4">
-        <label>City</label>
-        <select
-          name="city"
-          value={myFormik.values.city}
-          onChange={myFormik.handleChange}
-          className={`form-control ${
-            myFormik.errors.city ? "is-invalid" : ""
-          } `}
-        >
-          <option value="">----Select----</option>
-          {
-            cities.map((e) => {
-              return (
-                <option key={e.id} value={e.iso2}>
-                  {e.name}
-                </option>
-              )
-            })
-          }
-        </select>
-        <span style={{ color: "red" }}>{myFormik.errors.city}</span>
+            <div className="col-lg-4 mt-3">
+              <input
+                disabled={isLoading}
+                type="submit"
+                value={isLoading ? "Submitting..." : "Create"}
+                className=" btn btn-primary"
+              />
+            </div>
+          </div>
+        </form>
+        {/* {JSON.stringify(myFormik.values)} */}
       </div>
-
-        <div className="col-lg-4 mt-3">
-          <input
-            disabled={isLoading}
-            type="submit"
-            value={isLoading ? "Submitting..." : "Create"}
-            className=" btn btn-primary"
-          />
-        </div>
-      </div>
-    </form>
-    {/* {JSON.stringify(myFormik.values)} */}
-  </div>
-  <Toaster />
+      <Toaster />
     </>
   );
 };
