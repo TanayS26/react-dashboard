@@ -11,12 +11,13 @@ const CreateUser = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
 
+  const api = "https://api.countrystatecity.in/v1/countries"
 
   const navigate = useNavigate();
 
   const getAllCountries = async () => {
     try {
-      const countries = await axios.get("https://api.countrystatecity.in/v1/countries", {
+      const countries = await axios.get(api, {
         headers: {
           "X-CSCAPI-KEY":
               "dzZxYUdqTEhIamhrTUdmdDZJOUducnRFazhUWFl4ZzY5UU1LVmZnRQ==",
@@ -31,7 +32,7 @@ const CreateUser = () => {
   const getAllStates = async () => {
     try {
       const state = await axios.get(
-        `https://api.countrystatecity.in/v1/countries/IN/states`,
+        `${api}/${myFormik.values.country}/states`,
         {
           headers: {
             "X-CSCAPI-KEY":
@@ -48,7 +49,9 @@ const CreateUser = () => {
 
   const getAllCities = async () => {
     try {
-      const cities = await axios.get(`https://api.countrystatecity.in/v1/countries/IN/states/UP/cities`, {
+      const cities = await axios.get(
+        `${api}/${myFormik.values.country}/states/${myFormik.values.state}/cities`,
+        {
         headers: {
           "X-CSCAPI-KEY":
               "dzZxYUdqTEhIamhrTUdmdDZJOUducnRFazhUWFl4ZzY5UU1LVmZnRQ==",
@@ -59,13 +62,6 @@ const CreateUser = () => {
       console.log(err.message);
     }
   }
-
-  useEffect(() => {
-    getAllCountries();
-    getAllStates();
-    getAllCities();
-   
-  }, []);
 
   const myFormik = useFormik({
     initialValues: {
@@ -129,6 +125,11 @@ const CreateUser = () => {
     },
   });
   
+  useEffect(() => {
+    getAllCountries();
+    getAllStates();
+    getAllCities();
+  }, [myFormik.values.country, myFormik.values.state]);
 
   return (
     <>
