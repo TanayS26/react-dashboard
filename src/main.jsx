@@ -12,6 +12,7 @@ import CreateProduct from "./components/Products/CreateProduct.jsx";
 import EditProduct from "./components/Products/EditProduct.jsx";
 import "./theme.css";
 import Layout from "./Layout.jsx";
+import UserProfile from "./components/User/UserProfile.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="user/list" element={<UserListing />} />
         <Route path="user/create" element={<CreateUser />} />
         <Route path="user/edit/:id" element={<EditUser />} />
+        <Route path="user/profile/:id" element={<UserProfile/>} />
 
         <Route path="product/list" element={<ProductListing />} />
         <Route path="product/create" element={<CreateProduct />} />

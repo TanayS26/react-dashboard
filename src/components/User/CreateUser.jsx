@@ -30,6 +30,7 @@ const CreateUser = () => {
 
   const getAllStates = async () => {
     try {
+      // console.log('country ', country);
       const state = await axios.get(
         `https://api.countrystatecity.in/v1/countries/IN/states`,
         {
@@ -54,7 +55,8 @@ const CreateUser = () => {
               "dzZxYUdqTEhIamhrTUdmdDZJOUducnRFazhUWFl4ZzY5UU1LVmZnRQ==",
         },
       })
-      setCities(cities.data)
+      setCities(cities.data);
+      console.log('cities ', cities.data)
     } catch(err) {
       console.log(err.message);
     }
@@ -62,7 +64,7 @@ const CreateUser = () => {
 
   useEffect(() => {
     getAllCountries();
-    getAllStates();
+    getAllStates()
     getAllCities();
    
   }, []);
@@ -141,6 +143,7 @@ const CreateUser = () => {
             name="name"
             value={myFormik.values.name}
             onChange={myFormik.handleChange}
+
             type={"text"}
             className={`form-control ${
               myFormik.errors.name ? "is-invalid" : ""
@@ -202,13 +205,14 @@ const CreateUser = () => {
           <select
             name="country"
             value={myFormik.values.country}
-            // onChange={(e)=>{myFormik.handleChange  ,  getAllStates(e.target.value)}}
             onChange={myFormik.handleChange}
+            // onChange={(e) => {myFormik.handleChange(e), getAllStates(e.target.value)}}
             // onClick={(e)=>}
             className={`form-control ${
               myFormik.errors.country ? "is-invalid" : ""
             } `}
-          >
+            >
+            {console.log()}
             <option value="">----Select----</option>
             {
               countries.map((e) => {

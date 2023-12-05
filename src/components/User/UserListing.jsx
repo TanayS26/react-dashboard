@@ -106,10 +106,16 @@ const UserListing = () => {
                           <td>{user.country}</td>
                           <th>
                             <Link
-                              to={`/portal/user-view/${user.id}`}
-                              className="btn btn-primary btn-sm mr-1"
+                              to={`/layout/user/profile/${user.id}`}
+                              style={{
+                                fontSize: "30px",
+                                verticalAlign: "middle",
+                                cursor: "pointer",
+                                textDecoration: "none",
+                              }}
+                              className="material-symbols-outlined"
                             >
-                              View
+                              account_box
                             </Link>
                             <Link
                               to={`/layout/user/edit/${user.id}`}

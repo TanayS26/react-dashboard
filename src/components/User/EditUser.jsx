@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 const EditUser = () => {
-  const params = useParams();
+  // const params = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 

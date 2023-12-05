@@ -11,14 +11,14 @@
       "id": 1
     },
     {
-      "name": "Tanay",
-      "email": "tanay@dice-academy.com",
-      "password": "qq",
-      "number": 111,
-      "city": "Ayodhya",
-      "state": "MN",
-      "country": "AD",
-      "id": 2
+      "name": "Trip",
+      "email": "tripjha03@gmail.com",
+      "password": "1234",
+      "number": 123456,
+      "city": "Kanpur",
+      "state": "UP",
+      "country": "IN",
+      "id": 4
     }
   ],
   "products": [
@@ -35,13 +35,6 @@
       "desc": "qqq",
       "rating": 111,
       "id": 3
-    },
-    {
-      "name": "ee",
-      "price": 1,
-      "desc": "2232",
-      "rating": 1,
-      "id": 4
     }
   ],
   "profile": {
