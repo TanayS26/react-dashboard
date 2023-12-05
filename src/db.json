@@ -19,6 +19,26 @@
       "state": "UP",
       "country": "IN",
       "id": 4
+    },
+    {
+      "name": "Alex",
+      "email": "alex@gmail.com",
+      "password": "123456",
+      "number": 123456,
+      "city": "Mehar",
+      "state": "SD",
+      "country": "PK",
+      "id": 5
+    },
+    {
+      "name": "Tanay",
+      "email": "tanay@dice-academy.com",
+      "password": "123456",
+      "number": 1232121234,
+      "city": "Csanytelek",
+      "state": "CS",
+      "country": "HU",
+      "id": 6
     }
   ],
   "products": [

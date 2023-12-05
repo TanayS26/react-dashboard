@@ -5,13 +5,63 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 const EditUser = () => {
-  // const params = useParams();
+  const params = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  const api = "https://api.countrystatecity.in/v1/countries";
+
+  const getAllCountries = async () => {
+    try {
+      const countries = await axios.get(api, {
+        headers: {
+          "X-CSCAPI-KEY":
+            "dzZxYUdqTEhIamhrTUdmdDZJOUducnRFazhUWFl4ZzY5UU1LVmZnRQ==",
+        },
+      });
+      setCountries(countries.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const getAllStates = async () => {
+    try {
+      const state = await axios.get(
+        `${api}/${myFormik.values.country}/states`,
+        {
+          headers: {
+            "X-CSCAPI-KEY":
+              "dzZxYUdqTEhIamhrTUdmdDZJOUducnRFazhUWFl4ZzY5UU1LVmZnRQ==",
+          },
+        }
+      );
+      // console.log(state.data);
+      setStates(state.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const getAllCities = async () => {
+    try {
+      const cities = await axios.get(
+        `${api}/${myFormik.values.country}/states/${myFormik.values.state}/cities`,
+        {
+          headers: {
+            "X-CSCAPI-KEY":
+              "dzZxYUdqTEhIamhrTUdmdDZJOUducnRFazhUWFl4ZzY5UU1LVmZnRQ==",
+          },
+        }
+      );
+      setCities(cities.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   let getUserData = async () => {
     try {
@@ -67,22 +117,29 @@ const EditUser = () => {
         setIsLoading(true);
         await axios.put(`http://localhost:8000/users/${params.id}`, values);
         toast.success(`User with id ${params.id} updated successfully`, {
-          duration: 2000
-        })
+          duration: 2000,
+        });
         setIsLoading(false);
         setTimeout(() => {
           navigate("/layout/user/list");
-        }, 2000)
+        }, 2000);
       } catch (error) {
         console.log(error);
         setIsLoading(false);
       }
     },
   });
+
+  useEffect(() => {
+    getUserData();
+    getAllCountries();
+    getAllStates();
+    getAllCities();
+  }, [myFormik.values.country, myFormik.values.state]);
   return (
     <>
       <div className="container">
-        <h3>UserEdit - Id : {params.id} </h3>
+        {/*<h3>UserEdit - Id : {params.id} </h3>*/}
 
         <div className="container">
           <form onSubmit={myFormik.handleSubmit}>
@@ -144,24 +201,25 @@ const EditUser = () => {
               </div>
 
               <div className="col-lg-4">
-                <label>City</label>
+                <label>Country</label>
                 <select
-                  name="city"
-                  value={myFormik.values.city}
+                  name="country"
+                  value={myFormik.values.country}
                   onChange={myFormik.handleChange}
                   className={`form-control ${
-                    myFormik.errors.city ? "is-invalid" : ""
+                    myFormik.errors.country ? "is-invalid" : ""
                   } `}
                 >
                   <option value="">----Select----</option>
-                  <option value="CN">Chennai</option>
-                  <option value="KN">Kochin</option>
-                  <option value="MU">Mumbai</option>
-                  <option value="SA">Seattle</option>
-                  <option value="MI">Miami</option>
-                  <option value="VB">Virginia Beach</option>
+                  {countries.map((e) => {
+                    return (
+                      <option key={e.id} value={e.iso2}>
+                        {e.name}
+                      </option>
+                    );
+                  })}
                 </select>
-                <span style={{ color: "red" }}>{myFormik.errors.city}</span>
+                <span style={{ color: "red" }}>{myFormik.errors.country}</span>
               </div>
 
               <div className="col-lg-4">
@@ -175,31 +233,33 @@ const EditUser = () => {
                   } `}
                 >
                   <option value="">----Select----</option>
-                  <option value="TN">TamilNadu</option>
-                  <option value="KL">Kerala</option>
-                  <option value="MH">Maharashtra</option>
-                  <option value="WA">Washington</option>
-                  <option value="FL">Florida</option>
-                  <option value="VA">Virginia</option>
+                  {states.map((e) => {
+                    return <option key={e.id} value={e.iso2}>{e.name}</option>;
+                  })}
                 </select>
                 <span style={{ color: "red" }}>{myFormik.errors.state}</span>
               </div>
 
               <div className="col-lg-4">
-                <label>Country</label>
+                <label>City</label>
                 <select
-                  name="country"
-                  value={myFormik.values.country}
+                  name="city"
+                  value={myFormik.values.city}
                   onChange={myFormik.handleChange}
                   className={`form-control ${
-                    myFormik.errors.country ? "is-invalid" : ""
+                    myFormik.errors.city ? "is-invalid" : ""
                   } `}
                 >
                   <option value="">----Select----</option>
-                  <option value="IN">India</option>
-                  <option value="US">USA</option>
+                 {
+                  cities.map((e) => {
+                    return(
+                      <option key={e.id} value={e.name}>{e.name}</option>
+                    )
+                  })
+                 }
                 </select>
-                <span style={{ color: "red" }}>{myFormik.errors.country}</span>
+                <span style={{ color: "red" }}>{myFormik.errors.city}</span>
               </div>
 
               <div className="col-lg-4 mt-3">
