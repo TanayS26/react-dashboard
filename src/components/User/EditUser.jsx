@@ -11,8 +11,14 @@ const EditUser = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [toggle, setToggle] = useState(false);
+
 
   const api = "https://api.countrystatecity.in/v1/countries";
+
+  const togglePassword = () => {
+    setToggle(!toggle)
+  }
 
   const getAllCountries = async () => {
     try {
@@ -172,19 +178,31 @@ const EditUser = () => {
                 <span style={{ color: "red" }}>{myFormik.errors.email}</span>
               </div>
 
-              <div className="col-lg-6">
-                <label>Password</label>
-                <input
-                  name="password"
-                  value={myFormik.values.password}
-                  onChange={myFormik.handleChange}
-                  type={"password"}
-                  className={`form-control ${
-                    myFormik.errors.password ? "is-invalid" : ""
-                  } `}
-                />
-                <span style={{ color: "red" }}>{myFormik.errors.password}</span>
-              </div>
+              <div className="col-lg-6" style={{ position: "relative" }}>
+              <label>Password</label>
+              <input
+                name="password"
+                value={myFormik.values.password}
+                onChange={myFormik.handleChange}
+                type={toggle ? "text" : "password" }
+                className={`form-control ${
+                  myFormik.errors.password ? "is-invalid" : ""
+                } `}
+              />
+              <span
+                onClick={togglePassword}
+                className="material-symbols-outlined"
+                style={{
+                  position: "absolute",
+                  top: "40px",
+                  right: "25px",
+                  cursor: "pointer",
+                }}
+              >
+                { toggle ? "visibility" : "visibility_off"}
+              </span>
+              <span style={{ color: "red" }}>{myFormik.errors.password}</span>
+            </div>
 
               <div className="col-lg-6">
                 <label>Number</label>

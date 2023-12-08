@@ -81,7 +81,7 @@ const UserListing = () => {
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tfoot>
+                  {/*<tfoot>
                     <tr>
                       <th>Id</th>
                       <th>Name</th>
@@ -92,7 +92,7 @@ const UserListing = () => {
                       <th>Country</th>
                       <th>Action</th>
                     </tr>
-                  </tfoot>
+                  </tfoot>*/}
                   <tbody>
                     {userData.map((user) => {
                       return (
@@ -129,23 +129,29 @@ const UserListing = () => {
                             >
                               edit
                             </Link>
-                            <span
-                              onClick={() => handleDelete(user.id)}
-                              className="material-symbols-outlined"
-                              style={{
-                                fontSize: "30px",
-                                verticalAlign: "middle",
-                                cursor: "pointer",
-                              }}
+
+                            <Link
+                            onClick={() => handleDelete(user.id)}
+                            className="material-symbols-outlined"
+                            style={{
+                              fontSize: "30px",
+                              verticalAlign: "middle",
+                              cursor: "pointer",
+                              textDecoration: "none",
+                            }}
                             >
-                              delete
-                            </span>
+                            delete
+                            </Link>
                           </th>
                         </tr>
                       );
-                    })}
+                    })
+                  }
                   </tbody>
                 </table>
+                {
+                  userData.length === 0 ? <h1 className="text-danger text-center">No record found!</h1> : ""
+                }
               </div>
             )}
           </div>
